@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
-<project name="L2J_Datapack" default="dist" basedir=".">
+<project name="L2J4Team_Datapack" default="dist" basedir=".">
   <description>
         This script will build the L2J_Datapack.
         
@@ -30,7 +30,6 @@
   <property name="build.dist" location="${build}/dist"/>
   <property name="build.dist.game" location="${build.dist}/gameserver"/>
   <property name="build.dist.login" location="${build.dist}/login"/>
-  <property name="properties-file" location="${build.dist.game}/config/l2jdp-version.properties"/>
 
     <target name="init"
       depends="clean"
@@ -85,8 +84,8 @@
           <include name="servername.xml"/>
         </fileset>
       </copy>
-      <delete file="${build}/L2J_DataPack.zip"/>
-      <zip destfile="${build}/L2J_DataPack.zip" basedir="${build.dist}"/>
+      <delete file="${build}/L2j4Team_DataPack.zip"/>
+      <zip destfile="${build}/L2j4Team_DataPack.zip" basedir="${build.dist}"/>
     </target>
 
     <target name="version"

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project name="L2J_Server" default="dist" basedir=".">
+<project name="L2J4Team_Server" default="dist" basedir=".">
     <description>
         This script will build the L2J server.
         
@@ -235,7 +235,7 @@
     	    </fileset>
     	</copy>
 
-        <zip destfile="${build}/l2j-server.zip"
+        <zip destfile="${build}/L2j4Team_Server.zip"
              basedir="${build.dist}" />
     </target>   
     
