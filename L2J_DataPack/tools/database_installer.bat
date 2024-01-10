@@ -91,7 +91,7 @@ mysql -h %lshost% -u %lsuser% --password=%lspass% -D %lsdb% < ../sql/gameservers
 :gsbackup
 echo.
 echo Making a backup of the original gameserver database.
-mysqldump --add-drop-table -h %gshost% -u %gsuser% --password=%gspass% %gsdb% > gameserver_backup.sql
+mysqldump -h %gshost% -u %gsuser% --password=%gspass% %gsdb% > gameserver_backup.sql
 
 echo.
 echo.
@@ -204,7 +204,7 @@ REM if /i %expprompt%==q goto end
 REM goto end
 :expinstall
 REM echo Making a backup of the default gameserver tables.
-REM %mysqldumpPath% --add-drop-table -h %gshost% -u %gsuser% --password=%gspass% %gsdb% > experimental_backup.sql
+REM mysqldump -h %gshost% -u %gsuser% --password=%gspass% %gsdb% > experimental_backup.sql
 REM echo Installing new content.
 REM mysql -h %gshost% -u %gsuser% --password=%gspass% -D %gsdb% < ../sql/experimental/npc.sql
 REM mysql -h %gshost% -u %gsuser% --password=%gspass% -D %gsdb% < ../sql/experimental/npcskills.sql

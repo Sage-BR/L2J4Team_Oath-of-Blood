@@ -2,7 +2,7 @@
 :start
 echo Starting L2J4Team Login Server.
 echo.
-java -Xmx64m -cp ./lib/*; net.sf.l2j.loginserver.LoginServer
+java -Xmx64m -server -XX:+UseCodeCacheFlushing -XX:+OptimizeStringConcat -XX:+UseG1GC -XX:+TieredCompilation -XX:+UseCompressedOops -XX:SurvivorRatio=8 -XX:NewRatio=4 -cp ./lib/*; net.sf.l2j.loginserver.LoginServer
 if ERRORLEVEL 2 goto restart
 if ERRORLEVEL 1 goto error
 goto end
