@@ -1,4 +1,5 @@
 @echo off
+title L2J4Team LoginServer Console
 :start
 echo Starting L2J4Team Login Server.
 echo.

@@ -376,6 +376,17 @@ public final class Config
 
 	/*
 	 * *************************************************************************
+	 * * Custom *
+	 */
+	public static boolean ENABLE_ANTI_HEAVY;
+
+	/** General GM access level */
+	public static boolean ALLOW_CUSTOM_STARTER_ITEMS;
+
+	public static List<int[]> CUSTOM_STARTER_ITEMS = new FastList<>();
+
+	/*
+	 * *************************************************************************
 	 * * GM CONFIG General GM AccessLevel *
 	 */
 	/** General GM access level */
@@ -843,6 +854,8 @@ public final class Config
 	public static final String SEVENSIGNS_FILE = "./config/sevensigns.properties";
 
 	public static final String CLANHALL_CONFIG_FILE = "./config/clanhall.properties";
+
+	public static final String L24TEAM_CONFIG_FILE = "./config/L24Team.properties";
 
 	public static boolean CHECK_KNOWN;
 
@@ -1450,6 +1463,65 @@ public final class Config
 				throw new Error(
 						"Failed to Load " + CONFIGURATION_FILE + " File.");
 			}
+			// Custom Config
+			try
+			{
+				Properties L24Team = new Properties();
+				InputStream is = new FileInputStream(
+						new File(L24TEAM_CONFIG_FILE));
+				L24Team.load(is);
+				is.close();
+
+				ENABLE_ANTI_HEAVY = Boolean.parseBoolean(
+						L24Team.getProperty("EnableAntiHeavySystem", "True"));
+
+				ALLOW_CUSTOM_STARTER_ITEMS = Boolean.parseBoolean(L24Team
+						.getProperty("AllowCustomStarterItems", "false"));
+
+				if (ALLOW_CUSTOM_STARTER_ITEMS)
+				{
+					String[] propertySplit = L24Team
+							.getProperty("CustomStarterItems", "0,0")
+							.split(";");
+					for (String starteritems : propertySplit)
+					{
+						String[] starteritemsSplit = starteritems.split(",");
+						if (starteritemsSplit.length != 2)
+						{
+							ALLOW_CUSTOM_STARTER_ITEMS = false;
+							System.out.println(
+									"StarterItems[Config.load()]: invalid config property -> starter items \""
+											+ starteritems + "\"");
+						} else
+						{
+							try
+							{
+								CUSTOM_STARTER_ITEMS.add(new int[]
+									{ Integer.valueOf(starteritemsSplit[0]),
+											Integer.valueOf(
+													starteritemsSplit[1]) });
+							} catch (NumberFormatException nfe)
+							{
+								if (!starteritems.equals(""))
+								{
+									ALLOW_CUSTOM_STARTER_ITEMS = false;
+									System.out.println(
+											"StarterItems[Config.load()]: invalid config property -> starter items \""
+													+ starteritems + "\"");
+								}
+							}
+						}
+					}
+				}
+
+			} catch (Exception e)
+			{
+				e.printStackTrace();
+				throw new Error(
+						"Failed to Load " + L24TEAM_CONFIG_FILE + " File.");
+			}
+
+			// Seven Signs Config
 			try
 			{
 				Properties optionsSettings = new Properties();
@@ -1692,28 +1764,6 @@ public final class Config
 			{
 				e.printStackTrace();
 				throw new Error("Failed to Load " + OPTIONS_FILE + " File.");
-			}
-
-			/*
-			 * Load L2J Server Version Properties file (if exists)
-			 */
-			try
-			{
-				Properties serverVersion = new Properties();
-				InputStream is = new FileInputStream(
-						new File(SERVER_VERSION_FILE));
-				serverVersion.load(is);
-				is.close();
-
-				SERVER_VERSION = serverVersion.getProperty("version",
-						"Unsupported Custom Version.");
-				SERVER_BUILD_DATE = serverVersion.getProperty("builddate",
-						"Undefined Date.");
-			} catch (Exception e)
-			{
-				// Ignore Properties file if it doesnt exist
-				SERVER_VERSION = "Unsupported Custom Version.";
-				SERVER_BUILD_DATE = "Undefined Date.";
 			}
 
 			/*

@@ -34,6 +34,7 @@ import net.sf.l2j.gameserver.serverpackets.InventoryUpdate;
 import net.sf.l2j.gameserver.serverpackets.ItemList;
 import net.sf.l2j.gameserver.serverpackets.ShowCalculator;
 import net.sf.l2j.gameserver.serverpackets.SystemMessage;
+import net.sf.l2j.gameserver.templates.L2ArmorType;
 import net.sf.l2j.gameserver.templates.L2Item;
 import net.sf.l2j.gameserver.templates.L2Weapon;
 import net.sf.l2j.gameserver.templates.L2WeaponType;
@@ -87,6 +88,17 @@ public class UseItem extends ClientBasePacket
 
 		if (item == null)
 			return;
+		
+		if (Config.ENABLE_ANTI_HEAVY && item.getItemType() == L2ArmorType.HEAVY) {
+			if (activeChar.getClassId().getId() == 48 || activeChar.getClassId().getId() == 114 || activeChar.getClassId().getId() == 109
+			|| activeChar.getClassId().getId() == 37 || activeChar.getClassId().getId() == 108 || activeChar.getClassId().getId() == 36
+			|| activeChar.getClassId().getId() == 102 || activeChar.getClassId().getId() == 24 || activeChar.getClassId().getId() == 101
+			|| activeChar.getClassId().getId() == 23 || activeChar.getClassId().getId() == 93 || activeChar.getClassId().getId() == 8
+			|| activeChar.getClassId().getId() == 92 || activeChar.getClassId().getId() == 9) {
+			activeChar.sendMessage("Your class can't equip heavy type armors.");
+			return;
+			}
+		} 
 
 		// Alt game - Karma punishment // SOE
 		int itemId = item.getItemId();
