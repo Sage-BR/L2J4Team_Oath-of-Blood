@@ -17,6 +17,8 @@
  */
 package net.sf.l2j.gameserver.serverpackets;
 
+import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
+
 /**
  * Format: ch ddcdc
  *
@@ -26,15 +28,37 @@ public class ExPCCafePointInfo extends ServerBasePacket
 {
 	private static final String _S__FE_31_EXPCCAFEPOINTINFO = "[S] FE:31 ExPCCafePointInfo";
 
-	private int _unk1, _unk2, _unk3, _unk4, _unk5 = 0;
+	private L2PcInstance _character;
+	private int m_AddPoint;
+	private int m_PeriodType;
+	private int RemainTime;
+	private int PointType;
 
-	public ExPCCafePointInfo(int val1, int val2, int val3, int val4, int val5)
+	public ExPCCafePointInfo(L2PcInstance user, int modify, boolean add, int hour, boolean _double)
 	{
-		_unk1 = val1;
-		_unk2 = val2;
-		_unk3 = val3;
-		_unk4 = val4;
-		_unk5 = val5;
+		_character = user;
+		m_AddPoint = modify;
+
+		if(add)
+		{
+		m_PeriodType = 1;
+		PointType = 1;
+		}
+		else
+		{
+		if(add && _double)
+		{
+		m_PeriodType = 1;
+		PointType = 0;
+		}
+		else
+		{
+		m_PeriodType = 2;
+		PointType = 2;
+		}
+		}
+
+		RemainTime = hour;
 	}
 
 	/**
@@ -53,11 +77,11 @@ public class ExPCCafePointInfo extends ServerBasePacket
 	{
 		writeC(0xFE);
 		writeH(0x31);
-		writeD(_unk1);
-		writeD(_unk2);
-		writeC(_unk3);
-		writeD(_unk4);
-		writeC(_unk5);
+		writeD(_character.getPcBangScore());
+		writeD(m_AddPoint);
+		writeC(m_PeriodType);
+		writeD(RemainTime);
+		writeC(PointType);
 	}
 
 	/**

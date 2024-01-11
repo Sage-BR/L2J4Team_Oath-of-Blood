@@ -564,6 +564,11 @@ public class GameServer
 			if (Config.DEBUG)
 				e.printStackTrace();
 		}
+		if(Config.PCB_ENABLE)
+			{
+			System.out.println("############PCB_ENABLE##############");
+			ThreadPoolManager.getInstance().scheduleGeneralAtFixedRate(PcPoint.getInstance(), Config.PCB_INTERVAL * 1000, Config.PCB_INTERVAL * 1000);
+		}
 		ClanTable.getInstance();
 		ForumsBBSManager.getInstance();
 		_log.config("IdFactory: Free ObjectID's remaining: "

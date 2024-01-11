@@ -11,7 +11,7 @@
 #                 folder                     #
 #                                            #
 #           Link to geodata  files:          #
-# http://www.l2jserver.com/geodata/geodata   #
+# http://forum.4teambr.com/geodata/geodata   #
 #                                            #
 ##############################################
 

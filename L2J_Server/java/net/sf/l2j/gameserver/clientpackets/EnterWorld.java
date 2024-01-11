@@ -299,6 +299,11 @@ public class EnterWorld extends ClientBasePacket
 
 		activeChar.onPlayerEnter();
 
+		if(Config.PCB_ENABLE)
+		{
+			activeChar.showPcBangWindow();
+		}
+
 		if (Olympiad.getInstance().playerInStadia(activeChar))
 		{
 			activeChar.teleToLocation(MapRegionTable.TeleportWhereType.Town);

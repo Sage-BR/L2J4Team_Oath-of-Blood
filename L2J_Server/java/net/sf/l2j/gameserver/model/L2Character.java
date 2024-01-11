@@ -125,7 +125,7 @@ import net.sf.l2j.gameserver.util.Util;
  */
 public abstract class L2Character extends L2Object
 {
-	protected static final Logger _log = Logger
+	public static final Logger _log = Logger
 			.getLogger(L2Character.class.getName());
 
 	// =========================================================
@@ -3725,7 +3725,7 @@ public abstract class L2Character extends L2Object
 	protected L2CharacterAI _ai;
 
 	/** Future Skill Cast */
-	protected Future _skillCast;
+	protected Future<?> _skillCast;
 
 	/** Char Coords from Client */
 	private int _clientX;
@@ -6504,7 +6504,7 @@ public abstract class L2Character extends L2Object
 		return 1;
 	}
 
-	public final void setSkillCast(Future newSkillCast)
+	public final void setSkillCast(Future<?> newSkillCast)
 	{
 		_skillCast = newSkillCast;
 	}
@@ -6522,7 +6522,7 @@ public abstract class L2Character extends L2Object
 	{
 	}
 
-	private Future _PvPRegTask;
+	private Future<?> _PvPRegTask;
 
 	private long _lastPvpAttack;
 

@@ -141,6 +141,7 @@ import net.sf.l2j.gameserver.serverpackets.ExFishingEnd;
 import net.sf.l2j.gameserver.serverpackets.ExFishingStart;
 import net.sf.l2j.gameserver.serverpackets.ExOlympiadMode;
 import net.sf.l2j.gameserver.serverpackets.ExOlympiadUserInfo;
+import net.sf.l2j.gameserver.serverpackets.ExPCCafePointInfo;
 import net.sf.l2j.gameserver.serverpackets.HennaInfo;
 import net.sf.l2j.gameserver.serverpackets.InventoryUpdate;
 import net.sf.l2j.gameserver.serverpackets.ItemList;
@@ -183,6 +184,7 @@ import net.sf.l2j.gameserver.templates.L2WeaponType;
 import net.sf.l2j.gameserver.util.Broadcast;
 import net.sf.l2j.gameserver.util.Util;
 import net.sf.l2j.util.Point3D;
+import net.sf.l2j.gameserver.serverpackets.ExPCCafePointInfo;
 
 /**
  * This class represents all player characters in the world. There is always a
@@ -210,9 +212,9 @@ public final class L2PcInstance extends L2PlayableInstance
 
 	private static final String DELETE_SKILL_SAVE = "DELETE FROM character_skills_save WHERE char_obj_id=? AND class_index=?";
 
-	private static final String UPDATE_CHARACTER = "UPDATE characters SET level=?,maxHp=?,curHp=?,maxCp=?,curCp=?,maxMp=?,curMp=?,str=?,con=?,dex=?,_int=?,men=?,wit=?,face=?,hairStyle=?,hairColor=?,heading=?,x=?,y=?,z=?,exp=?,sp=?,karma=?,pvpkills=?,pkkills=?,rec_have=?,rec_left=?,clanid=?,maxload=?,race=?,classid=?,deletetime=?,title=?,accesslevel=?,online=?,isin7sdungeon=?,clan_privs=?,wantspeace=?,base_class=?,onlinetime=?,in_jail=?,jail_timer=?,newbie=?,nobless=?,power_grade=?,subpledge=?,last_recom_date=?,lvl_joined_academy=?,apprentice=?,sponsor=?,varka_ketra_ally=?,clan_join_expiry_time=?,clan_create_expiry_time=? WHERE obj_id=?";
+	private static final String UPDATE_CHARACTER = "UPDATE characters SET level=?,maxHp=?,curHp=?,maxCp=?,curCp=?,maxMp=?,curMp=?,str=?,con=?,dex=?,_int=?,men=?,wit=?,face=?,hairStyle=?,hairColor=?,heading=?,x=?,y=?,z=?,exp=?,sp=?,karma=?,pvpkills=?,pkkills=?,rec_have=?,rec_left=?,clanid=?,maxload=?,race=?,classid=?,deletetime=?,title=?,accesslevel=?,online=?,isin7sdungeon=?,clan_privs=?,wantspeace=?,base_class=?,onlinetime=?,in_jail=?,jail_timer=?,newbie=?,nobless=?,power_grade=?,subpledge=?,last_recom_date=?,lvl_joined_academy=?,apprentice=?,sponsor=?,varka_ketra_ally=?,clan_join_expiry_time=?,clan_create_expiry_time=?,pc_point=? WHERE obj_id=?";
 
-	private static final String RESTORE_CHARACTER = "SELECT account_name, obj_Id, char_name, level, maxHp, curHp, maxCp, curCp, maxMp, curMp, acc, crit, evasion, mAtk, mDef, mSpd, pAtk, pDef, pSpd, runSpd, walkSpd, str, con, dex, _int, men, wit, face, hairStyle, hairColor, sex, heading, x, y, z, movement_multiplier, attack_speed_multiplier, colRad, colHeight, exp, sp, karma, pvpkills, pkkills, clanid, maxload, race, classid, deletetime, cancraft, title, rec_have, rec_left, accesslevel, online, char_slot, lastAccess, clan_privs, wantspeace, base_class, onlinetime, isin7sdungeon, in_jail, jail_timer, newbie, nobless, power_grade, subpledge, last_recom_date, lvl_joined_academy, apprentice, sponsor, varka_ketra_ally,clan_join_expiry_time,clan_create_expiry_time FROM characters WHERE obj_id=?";
+	private static final String RESTORE_CHARACTER = "SELECT account_name, obj_Id, char_name, level, maxHp, curHp, maxCp, curCp, maxMp, curMp, acc, crit, evasion, mAtk, mDef, mSpd, pAtk, pDef, pSpd, runSpd, walkSpd, str, con, dex, _int, men, wit, face, hairStyle, hairColor, sex, heading, x, y, z, movement_multiplier, attack_speed_multiplier, colRad, colHeight, exp, sp, karma, pvpkills, pkkills, clanid, maxload, race, classid, deletetime, cancraft, title, rec_have, rec_left, accesslevel, online, char_slot, lastAccess, clan_privs, wantspeace, base_class, onlinetime, isin7sdungeon, in_jail, jail_timer, newbie, nobless, power_grade, subpledge, last_recom_date, lvl_joined_academy, apprentice, sponsor, varka_ketra_ally,clan_join_expiry_time,clan_create_expiry_time,pc_point FROM characters WHERE obj_id=?";
 
 	private static final String RESTORE_CHAR_SUBCLASSES = "SELECT class_id,exp,sp,level,class_index FROM character_subclasses WHERE char_obj_id=? ORDER BY class_index ASC";
 
@@ -394,7 +396,7 @@ public final class L2PcInstance extends L2PlayableInstance
 
 	private long _jailTimer = 0;
 
-	private ScheduledFuture _jailTask;
+	private ScheduledFuture<?> _jailTask;
 
 	private boolean _isIn7sDungeon = false;
 
@@ -589,7 +591,7 @@ public final class L2PcInstance extends L2PlayableInstance
 
 	private boolean _chatBanned = false; // Chat Banned
 
-	private ScheduledFuture _chatUnbanTask = null;
+	private ScheduledFuture<?> _chatUnbanTask = null;
 
 	private boolean _messageRefusal = false; // message refusal mode
 
@@ -616,6 +618,9 @@ public final class L2PcInstance extends L2PlayableInstance
 
 	// protects a char from agro mobs when getting up from fake death
 	private long _recentFakeDeathEndTime = 0;
+
+	/** PC BANG POINT */
+	private int pcBangPoint = 0;
 
 	/**
 	 * The fists L2Weapon of the L2PcInstance (used when no weapon is equiped)
@@ -695,9 +700,9 @@ public final class L2PcInstance extends L2PlayableInstance
 
 	private int _fishz = 0;
 
-	private ScheduledFuture _taskRentPet;
+	private ScheduledFuture<?> _taskRentPet;
 
-	private ScheduledFuture _taskWater;
+	private ScheduledFuture<?> _taskWater;
 
 	/** Bypass validations */
 	private List<String> _validBypass = new FastList<>();
@@ -6088,6 +6093,7 @@ public final class L2PcInstance extends L2PlayableInstance
 				player.setPledgeType(rset.getInt("subpledge"));
 				player.setLastRecomUpdate(rset.getLong("last_recom_date"));
 				// player.setApprentice(rset.getInt("apprentice"));
+				player.pcBangPoint = rset.getInt("pc_point");
 
 				if (clanId > 0)
 				{
@@ -6593,7 +6599,8 @@ public final class L2PcInstance extends L2PlayableInstance
 			statement.setInt(51, getAllianceWithVarkaKetra());
 			statement.setLong(52, getClanJoinExpiryTime());
 			statement.setLong(53, getClanCreateExpiryTime());
-			statement.setInt(54, getObjectId());
+			statement.setInt(54, getPcBangScore());
+			statement.setInt(55, getObjectId());
 
 			statement.execute();
 			statement.close();
@@ -8472,7 +8479,7 @@ public final class L2PcInstance extends L2PlayableInstance
 		}
 	}
 
-	private ScheduledFuture _taskWarnUserTakeBreak;
+	private ScheduledFuture<?> _taskWarnUserTakeBreak;
 
 	class WarnUserTakeBreak implements Runnable
 	{
@@ -8497,7 +8504,7 @@ public final class L2PcInstance extends L2PlayableInstance
 		}
 	}
 
-	public ScheduledFuture _taskforfish;
+	public ScheduledFuture<?> _taskforfish;
 
 	class WaterTask implements Runnable
 	{
@@ -8771,12 +8778,12 @@ public final class L2PcInstance extends L2PlayableInstance
 		return _chatBanned;
 	}
 
-	public void setChatUnbanTask(ScheduledFuture task)
+	public void setChatUnbanTask(ScheduledFuture<?> task)
 	{
 		_chatUnbanTask = task;
 	}
 
-	public ScheduledFuture getChatUnbanTask()
+	public ScheduledFuture<?> getChatUnbanTask()
 	{
 		return _chatUnbanTask;
 	}
@@ -10922,5 +10929,34 @@ public final class L2PcInstance extends L2PlayableInstance
 	public void removeTimeStamp(int s)
 	{
 		ReuseTimeStamps.remove(s);
+	}
+
+	//PcBang
+	public int getPcBangScore()
+	{
+	 return pcBangPoint;
+	}
+
+	public void reducePcBangScore(int to)
+	{
+	 pcBangPoint -= to;
+	 updatePcBangWnd(to, false, false);
+	}
+
+	public void addPcBangScore(int to)
+	{
+	 pcBangPoint += to;
+	}
+
+	public void updatePcBangWnd(int score, boolean add, boolean duble)
+	{
+	 ExPCCafePointInfo wnd = new ExPCCafePointInfo(this, score, add, 24, duble);
+	 sendPacket(wnd);
+	}
+
+	public void showPcBangWindow()
+	{
+	 ExPCCafePointInfo wnd = new ExPCCafePointInfo(this, 0, false, 24, false);
+	 sendPacket(wnd);
 	}
 }
