@@ -88,7 +88,7 @@ public class UseItem extends ClientBasePacket
 
 		if (item == null)
 			return;
-		
+
 		if (Config.ENABLE_ANTI_HEAVY && item.getItemType() == L2ArmorType.HEAVY) {
 			if (activeChar.getClassId().getId() == 48 || activeChar.getClassId().getId() == 114 || activeChar.getClassId().getId() == 109
 			|| activeChar.getClassId().getId() == 37 || activeChar.getClassId().getId() == 108 || activeChar.getClassId().getId() == 36
@@ -98,7 +98,7 @@ public class UseItem extends ClientBasePacket
 			activeChar.sendMessage("Your class can't equip heavy type armors.");
 			return;
 			}
-		} 
+		}
 
 		// Alt game - Karma punishment // SOE
 		int itemId = item.getItemId();

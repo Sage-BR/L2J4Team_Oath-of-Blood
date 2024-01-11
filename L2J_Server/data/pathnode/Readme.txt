@@ -11,7 +11,7 @@
 #                 folder                     #
 #                                            #
 #           Link to pathnode files:          #
-# http://www.l2jserver.com/geodata/pathnode  #
+# http://forum.4teambr.com/geodata/pathnode  #
 #                                            #
 ##############################################
 

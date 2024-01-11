@@ -157,6 +157,11 @@ public class MultiSellChoose extends ClientBasePacket
 				_ingredientsList.clear();
 				_ingredientsList = null;
 				return;
+				}
+				if(e.getItemId() == 65436 && e.getItemCount() * _amount > player.getPcBangScore())
+				{
+				player.sendPacket(new SystemMessage(SystemMessage.NOT_ENOUGH_ITEMS));
+				return;
 			}
 		}
 

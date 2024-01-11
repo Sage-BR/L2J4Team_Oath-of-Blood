@@ -37,8 +37,8 @@ import net.sf.l2j.gameserver.model.L2ItemInstance;
 import net.sf.l2j.gameserver.model.L2ShortCut;
 import net.sf.l2j.gameserver.model.L2SkillLearn;
 import net.sf.l2j.gameserver.model.L2World;
-import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.model.PcInventory;
+import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.serverpackets.CharCreateFail;
 import net.sf.l2j.gameserver.serverpackets.CharCreateOk;
 import net.sf.l2j.gameserver.serverpackets.CharSelectInfo;
@@ -253,7 +253,7 @@ public class CharacterCreate extends ClientBasePacket
 			if (ItemTable.getInstance().createDummyItem(startingItems[0]).isStackable())
 			{
 				inv.addItem("Starter Items", startingItems[0], startingItems[1], newChar, null);
-			} 
+			}
 			else
 			{
 				for (int i = 0; i < startingItems[1]; i++)

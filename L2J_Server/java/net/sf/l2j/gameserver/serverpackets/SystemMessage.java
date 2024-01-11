@@ -57,6 +57,11 @@ public class SystemMessage extends ServerBasePacket
 
 	public static final int CANT_ATK_PEACEZONE = 84;
 
+	// Custom
+	public static final int S1 = 3000;
+	public static final int DOUBLE_POINTS_YOU_GOT_$51_GLASSES_PC = 3001;
+	public static final int YOU_RECEVIED_$51_GLASSES_PC = 3002;
+
 	// magic related
 	public static final int NOT_ENOUGH_HP = 23;
 

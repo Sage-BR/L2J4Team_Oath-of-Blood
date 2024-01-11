@@ -385,6 +385,17 @@ public final class Config
 
 	public static List<int[]> CUSTOM_STARTER_ITEMS = new FastList<>();
 
+	//============================================================
+	public static boolean PCB_ENABLE;
+	public static int PCB_MIN_LEVEL;
+	public static int PCB_POINT_MIN;
+	public static int PCB_POINT_MAX;
+	public static int PCB_CHANCE_DUAL_POINT;
+	public static int PCB_INTERVAL;
+
+	//============================================================
+
+
 	/*
 	 * *************************************************************************
 	 * * GM CONFIG General GM AccessLevel *
@@ -1513,7 +1524,18 @@ public final class Config
 						}
 					}
 				}
+			 PCB_ENABLE = Boolean.parseBoolean(L24Team.getProperty("PcBangPointEnable", "true"));
+			 PCB_MIN_LEVEL = Integer.parseInt(L24Team.getProperty("PcBangPointMinLevel", "20"));
+			 PCB_POINT_MIN = Integer.parseInt(L24Team.getProperty("PcBangPointMinCount", "20"));
+			 PCB_POINT_MAX = Integer.parseInt(L24Team.getProperty("PcBangPointMaxCount", "1000000"));
 
+			if(PCB_POINT_MAX < 1)
+			{
+				PCB_POINT_MAX = Integer.MAX_VALUE;
+			}
+
+				PCB_CHANCE_DUAL_POINT = Integer.parseInt(L24Team.getProperty("PcBangPointDualChance", "20"));
+				PCB_INTERVAL = Integer.parseInt(L24Team.getProperty("PcBangPointTimeStamp", "900"));
 			} catch (Exception e)
 			{
 				e.printStackTrace();
