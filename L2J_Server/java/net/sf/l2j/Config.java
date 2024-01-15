@@ -449,6 +449,10 @@ public final class Config
 	public static int	TITLE_COLOR_FOR_AMMOUNT9;
 	public static int	TITLE_COLOR_FOR_AMMOUNT10;
 	
+	public static boolean ALLOW_CUSTOM_CHAR_LVL;
+	public static int CUSTOM_CHAR_LVL;
+
+	
 	//============================================================
 
 	/*
@@ -944,6 +948,8 @@ public final class Config
 	/** Show L2Monster level and aggro ? */
 	public static boolean SHOW_NPC_LVL;
 
+	public static boolean SHOW_RED_NAME_IF_AGGRO;
+	
 	/**
 	 * Force full item inventory packet to be sent for any item change ?<br>
 	 * <u><i>Note:</i></u> This can increase network traffic
@@ -1645,6 +1651,12 @@ public final class Config
 				PVP_AMMOUNT3 = Integer.parseInt(L24Team.getProperty("PvpAmmount8", "4500"));
 				PVP_AMMOUNT4 = Integer.parseInt(L24Team.getProperty("PvpAmmount9", "5500"));
 				PVP_AMMOUNT5 = Integer.parseInt(L24Team.getProperty("PvpAmmount10", "7000"));
+				
+				ALLOW_CUSTOM_CHAR_LVL = Boolean.parseBoolean(L24Team.getProperty("AllowCustomStartLvl", "false"));
+				CUSTOM_CHAR_LVL = Integer.parseInt(L24Team.getProperty("CustomStartLvl", "1"));
+				
+				SHOW_RED_NAME_IF_AGGRO = Boolean.parseBoolean(L24Team.getProperty("ShowRedName", "false"));
+				
 			} catch (Exception e)
 			{
 				e.printStackTrace();

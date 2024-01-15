@@ -42,6 +42,7 @@ import net.sf.l2j.gameserver.model.L2Clan;
 import net.sf.l2j.gameserver.model.L2Effect;
 import net.sf.l2j.gameserver.model.L2World;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
+import net.sf.l2j.gameserver.model.base.Experience;
 import net.sf.l2j.gameserver.model.actor.appearance.PcAppearance;
 import net.sf.l2j.gameserver.model.entity.Hero;
 import net.sf.l2j.gameserver.model.entity.L2Event;
@@ -113,6 +114,11 @@ public class EnterWorld extends ClientBasePacket
 			// activeChar.closeNetConnection();
 		}
 
+		if (Config.ALLOW_CUSTOM_CHAR_LVL && (activeChar.getLevel() == 1))
+		{
+			activeChar.getStat().addExp(Experience.LEVEL[Config.CUSTOM_CHAR_LVL]);
+		}
+		
 		if (activeChar.isGM())
 		{
 			if (Config.GM_STARTUP_INVULNERABLE && (!Config.ALT_PRIVILEGES_ADMIN
@@ -256,6 +262,7 @@ public class EnterWorld extends ClientBasePacket
 			}
 		}
 		// Custom PVP Color System
+		
 		
 		// Expand Skill
 		ExStorageMaxCount esmc = new ExStorageMaxCount(activeChar);

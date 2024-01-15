@@ -28,6 +28,7 @@ import net.sf.l2j.Config;
 import net.sf.l2j.Server;
 import net.sf.l2j.gameserver.LoginServerThread;
 import net.sf.l2j.loginserver.GameServerTable;
+import net.sf.l2j.L2DatabaseFactory;
 
 public class GameServerRegister
 {
@@ -42,6 +43,7 @@ public class GameServerRegister
 		Server.SERVER_MODE = Server.MODE_LOGINSERVER;
 		Config.load();
 		gsTable = new GameServerTable();
+		
 		System.out.println("Welcome to l2j GameServer Regitering");
 		System.out.println(
 				"Enter The id of the server you want to register or type help to get a list of ids:");

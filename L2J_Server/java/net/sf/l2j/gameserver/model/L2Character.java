@@ -281,6 +281,11 @@ public abstract class L2Character extends L2Object
 		}
 	}
 
+	public boolean isAggressive()
+	{
+		return false;
+	}
+	
 	protected void initCharStatusUpdateValues()
 	{
 		_hpUpdateInterval = getMaxHp() / 352.0; // MAX_HP div MAX_HP_BAR_PX
@@ -1920,7 +1925,7 @@ public abstract class L2Character extends L2Object
 	{
 		_IsPsychicalMuted = value;
 	}
-
+	
 	/**
 	 * Return True if the L2Character can't move (stun, root, sleep, overload,
 	 * paralyzed).

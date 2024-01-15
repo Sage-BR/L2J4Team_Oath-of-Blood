@@ -53,10 +53,10 @@ public class SQLAccountManager
 	{
 		Server.SERVER_MODE = Server.MODE_LOGINSERVER;
 		Config.load();
+		L2DatabaseFactory.getInstance();
 		System.out.println("Please choose an option:");
 		System.out.println("");
-		System.out.println(
-				"1 - Create new account or update existing one (change pass and access level).");
+		System.out.println("1 - Create new account or update existing one (change pass and access level).");
 		System.out.println("2 - Change access level.");
 		System.out.println("3 - Delete existing account.");
 		System.out.println("4 - List accounts & access levels.");

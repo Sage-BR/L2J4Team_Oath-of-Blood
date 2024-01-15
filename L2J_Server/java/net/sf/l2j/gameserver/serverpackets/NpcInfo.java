@@ -165,9 +165,18 @@ public class NpcInfo extends ServerBasePacket
 										// animation)
 		writeS(_name);
 		writeS(_title);
-		writeD(0);
-		writeD(0);
-		writeD(0000); // hmm karma ??
+		if (Config.SHOW_RED_NAME_IF_AGGRO && _cha instanceof L2MonsterInstance)
+		{
+			writeD(0);
+			writeD(0);
+			writeD(_cha.isAggressive() ? 0x9999 : 0x00);
+		}
+		else
+		{
+			writeD(0);
+			writeD(0);
+			writeD(0000); // hmm karma ??
+		}
 
 		writeD(_cha.getAbnormalEffect()); // C2
 		writeD(0000); // C2
