@@ -42,6 +42,7 @@ import net.sf.l2j.gameserver.model.L2Clan;
 import net.sf.l2j.gameserver.model.L2Effect;
 import net.sf.l2j.gameserver.model.L2World;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
+import net.sf.l2j.gameserver.model.actor.appearance.PcAppearance;
 import net.sf.l2j.gameserver.model.entity.Hero;
 import net.sf.l2j.gameserver.model.entity.L2Event;
 import net.sf.l2j.gameserver.model.quest.Quest;
@@ -190,7 +191,72 @@ public class EnterWorld extends ClientBasePacket
 				}
 			}
 		}
-
+		
+		//Custom PVP Color System
+		if (!activeChar.isGM()) // skip gms.;)
+		{
+			int pvpAmmount = activeChar.getPvpKills();
+			PcAppearance charAppearance = activeChar.getAppearance();
+		
+			if (Config.PVP_COLOR_SYSTEM)
+			{
+				//can't use a switch here , cause the ammount aren't constants and we cant convert to final in Config.
+				// since need to be parsed :S
+				if (pvpAmmount >= Config.PVP_AMMOUNT1 && pvpAmmount < Config.PVP_AMMOUNT2)
+				{
+					charAppearance.setNameColor(Config.COLOR_FOR_AMMOUNT1);
+					charAppearance.setTitleColor(Config.TITLE_COLOR_FOR_AMMOUNT1);
+				}
+				else if (pvpAmmount >= Config.PVP_AMMOUNT2 && pvpAmmount < Config.PVP_AMMOUNT3)
+				{
+					charAppearance.setNameColor(Config.COLOR_FOR_AMMOUNT2);
+					charAppearance.setTitleColor(Config.TITLE_COLOR_FOR_AMMOUNT2);
+				}
+				else if (pvpAmmount >= Config.PVP_AMMOUNT3 && pvpAmmount < Config.PVP_AMMOUNT4)
+				{
+					charAppearance.setNameColor(Config.COLOR_FOR_AMMOUNT3);
+					charAppearance.setTitleColor(Config.TITLE_COLOR_FOR_AMMOUNT3);
+				}
+		
+				else if (pvpAmmount >= Config.PVP_AMMOUNT4 && pvpAmmount < Config.PVP_AMMOUNT5)
+				{
+					charAppearance.setNameColor(Config.COLOR_FOR_AMMOUNT4);
+					charAppearance.setTitleColor(Config.TITLE_COLOR_FOR_AMMOUNT4);
+				}
+				else if (pvpAmmount >= Config.PVP_AMMOUNT5 && pvpAmmount < Config.PVP_AMMOUNT6)
+				{
+					charAppearance.setNameColor(Config.COLOR_FOR_AMMOUNT5);
+					charAppearance.setTitleColor(Config.TITLE_COLOR_FOR_AMMOUNT5);
+				}
+				else if (pvpAmmount >= Config.PVP_AMMOUNT5 && pvpAmmount < Config.PVP_AMMOUNT7)
+				{
+					charAppearance.setNameColor(Config.COLOR_FOR_AMMOUNT6);
+					charAppearance.setTitleColor(Config.TITLE_COLOR_FOR_AMMOUNT6);
+				}
+				else if (pvpAmmount >= Config.PVP_AMMOUNT5 && pvpAmmount < Config.PVP_AMMOUNT8)
+				{
+					charAppearance.setNameColor(Config.COLOR_FOR_AMMOUNT7);
+					charAppearance.setTitleColor(Config.TITLE_COLOR_FOR_AMMOUNT7);
+				}
+				else if (pvpAmmount >= Config.PVP_AMMOUNT5 && pvpAmmount < Config.PVP_AMMOUNT9)
+				{
+					charAppearance.setNameColor(Config.COLOR_FOR_AMMOUNT8);
+					charAppearance.setTitleColor(Config.TITLE_COLOR_FOR_AMMOUNT8);
+				}
+				else if (pvpAmmount >= Config.PVP_AMMOUNT5 && pvpAmmount < Config.PVP_AMMOUNT10)
+				{
+					charAppearance.setNameColor(Config.COLOR_FOR_AMMOUNT9);
+					charAppearance.setTitleColor(Config.TITLE_COLOR_FOR_AMMOUNT9);
+				}
+				else if (pvpAmmount >= Config.PVP_AMMOUNT5 && pvpAmmount > Config.PVP_AMMOUNT9)
+				{
+					charAppearance.setNameColor(Config.COLOR_FOR_AMMOUNT10);
+					charAppearance.setTitleColor(Config.TITLE_COLOR_FOR_AMMOUNT10);
+				}
+			}
+		}
+		// Custom PVP Color System
+		
 		// Expand Skill
 		ExStorageMaxCount esmc = new ExStorageMaxCount(activeChar);
 		activeChar.sendPacket(esmc);
@@ -221,21 +287,6 @@ public class EnterWorld extends ClientBasePacket
 
 		sendPacket(sm);
 
-		if (Config.SERVER_VERSION != null)
-		{
-			sm = new SystemMessage(SystemMessage.S1_S2);
-			sm.addString(getText("TDJKIFNlcnZlciBWZXJzaW9uOg==") + "      "
-					+ Config.SERVER_VERSION);
-			sendPacket(sm);
-		}
-
-		if (Config.DATAPACK_VERSION != null)
-		{
-			sm = new SystemMessage(SystemMessage.S1_S2);
-			sm.addString(getText("TDJKIERhdGFwYWNrIFZlcnNpb246") + "  "
-					+ Config.DATAPACK_VERSION);
-			sendPacket(sm);
-		}
 		sm = null;
 
 		sm = new SystemMessage(SystemMessage.S1_S2);

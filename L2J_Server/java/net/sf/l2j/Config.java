@@ -393,8 +393,63 @@ public final class Config
 	public static int PCB_CHANCE_DUAL_POINT;
 	public static int PCB_INTERVAL;
 
+	/** Class Balances */
+	public static float DAGGER_VS_HEAVY;
+	public static float DAGGER_VS_LIGHT;
+	public static float DAGGER_VS_ROBE;
+	public static float ARCHER_VS_HEAVY;
+	public static float ARCHER_VS_LIGHT;
+	public static float ARCHER_VS_ROBE;
+	public static float BLUNT_VS_HEAVY;
+	public static float BLUNT_VS_LIGHT;
+	public static float BLUNT_VS_ROBE;
+	public static float FIST_VS_HEAVY;
+	public static float FIST_VS_LIGHT;
+	public static float FIST_VS_ROBE;
+	public static float DUAL_VS_HEAVY;
+	public static float DUAL_VS_LIGHT;
+	public static float DUAL_VS_ROBE;
+	public static float SWORD_VS_HEAVY;
+	public static float SWORD_VS_LIGHT;
+	public static float SWORD_VS_ROBE;
+	public static float POLE_VS_HEAVY;
+	public static float POLE_VS_LIGHT;
+	public static float POLE_VS_ROBE;
+	
+	public static int	COLOR_FOR_AMMOUNT1;
+	public static int	COLOR_FOR_AMMOUNT2;
+	public static int	COLOR_FOR_AMMOUNT3;
+	public static int	COLOR_FOR_AMMOUNT4;
+	public static int	COLOR_FOR_AMMOUNT5;
+	public static int	COLOR_FOR_AMMOUNT6;
+	public static int	COLOR_FOR_AMMOUNT7;
+	public static int	COLOR_FOR_AMMOUNT8;
+	public static int	COLOR_FOR_AMMOUNT9;
+	public static int	COLOR_FOR_AMMOUNT10;
+	public static int	PVP_AMMOUNT1;
+	public static int	PVP_AMMOUNT2;
+	public static int	PVP_AMMOUNT3;
+	public static int	PVP_AMMOUNT4;
+	public static int	PVP_AMMOUNT5;
+	public static int	PVP_AMMOUNT6;
+	public static int	PVP_AMMOUNT7;
+	public static int	PVP_AMMOUNT8;
+	public static int	PVP_AMMOUNT9;
+	public static int	PVP_AMMOUNT10;
+	public static boolean	PVP_COLOR_SYSTEM;
+	
+	public static int	TITLE_COLOR_FOR_AMMOUNT1;
+	public static int	TITLE_COLOR_FOR_AMMOUNT2;
+	public static int	TITLE_COLOR_FOR_AMMOUNT3;
+	public static int	TITLE_COLOR_FOR_AMMOUNT4;
+	public static int	TITLE_COLOR_FOR_AMMOUNT5;
+	public static int	TITLE_COLOR_FOR_AMMOUNT6;
+	public static int	TITLE_COLOR_FOR_AMMOUNT7;
+	public static int	TITLE_COLOR_FOR_AMMOUNT8;
+	public static int	TITLE_COLOR_FOR_AMMOUNT9;
+	public static int	TITLE_COLOR_FOR_AMMOUNT10;
+	
 	//============================================================
-
 
 	/*
 	 * *************************************************************************
@@ -836,12 +891,6 @@ public final class Config
 
 	/** Properties file for telnet configuration */
 	public static final String TELNET_FILE = "./config/telnet.properties";
-
-	/** Properties file for l2j server version configurations */
-	public static final String SERVER_VERSION_FILE = "./config/l2j-version.properties";
-
-	/** Properties file for l2j datapack version configurations */
-	public static final String DATAPACK_VERSION_FILE = "./config/l2jdp-version.properties";
 
 	/** Properties file for siege configuration */
 	public static final String SIEGE_CONFIGURATION_FILE = "./config/siege.properties";
@@ -1536,6 +1585,66 @@ public final class Config
 
 				PCB_CHANCE_DUAL_POINT = Integer.parseInt(L24Team.getProperty("PcBangPointDualChance", "20"));
 				PCB_INTERVAL = Integer.parseInt(L24Team.getProperty("PcBangPointTimeStamp", "900"));
+				
+				DAGGER_VS_HEAVY = Float.parseFloat(L24Team.getProperty("DaggerVsHeavy", "2.50"));
+				DAGGER_VS_LIGHT = Float.parseFloat(L24Team.getProperty("DaggerVsHeavy", "2.00"));
+				DAGGER_VS_ROBE = Float.parseFloat(L24Team.getProperty("DaggerVsHeavy", "1.80"));
+				
+				ARCHER_VS_HEAVY = Float.parseFloat(L24Team.getProperty("ArcherVsHeavy", "2.50"));
+				ARCHER_VS_LIGHT = Float.parseFloat(L24Team.getProperty("ArcherVsHeavy", "2.00"));
+				ARCHER_VS_ROBE = Float.parseFloat(L24Team.getProperty("ArcherVsHeavy", "1.80"));
+				
+				BLUNT_VS_HEAVY = Float.parseFloat(L24Team.getProperty("BluntVsHeavy", "2.50"));
+				BLUNT_VS_LIGHT = Float.parseFloat(L24Team.getProperty("BluntVsHeavy", "2.00"));
+				BLUNT_VS_ROBE = Float.parseFloat(L24Team.getProperty("BluntVsHeavy", "1.80"));
+				
+				FIST_VS_HEAVY = Float.parseFloat(L24Team.getProperty("FistVsHeavy", "2.50"));
+				FIST_VS_LIGHT = Float.parseFloat(L24Team.getProperty("FistVsHeavy", "2.00"));
+				FIST_VS_ROBE = Float.parseFloat(L24Team.getProperty("FistVsHeavy", "1.80"));
+				
+				DUAL_VS_HEAVY = Float.parseFloat(L24Team.getProperty("DualVsHeavy", "2.50"));
+				DUAL_VS_LIGHT = Float.parseFloat(L24Team.getProperty("DualVsHeavy", "2.00"));
+				DUAL_VS_ROBE = Float.parseFloat(L24Team.getProperty("DualVsHeavy", "1.80"));
+				
+				SWORD_VS_HEAVY = Float.parseFloat(L24Team.getProperty("SwordVsHeavy", "2.50"));
+				SWORD_VS_LIGHT = Float.parseFloat(L24Team.getProperty("SwordVsHeavy", "2.00"));
+				SWORD_VS_ROBE = Float.parseFloat(L24Team.getProperty("SwordVsHeavy", "1.80"));
+				
+				POLE_VS_HEAVY = Float.parseFloat(L24Team.getProperty("PoleVsHeavy", "2.50"));
+				POLE_VS_LIGHT = Float.parseFloat(L24Team.getProperty("PoleVsHeavy", "2.00"));
+				POLE_VS_ROBE = Float.parseFloat(L24Team.getProperty("PoleVsHeavy", "1.80"));
+				
+				PVP_COLOR_SYSTEM = Boolean.parseBoolean(L24Team.getProperty("PvPColorSystem", "false"));
+				COLOR_FOR_AMMOUNT1 = Integer.decode("0x" + L24Team.getProperty("ColorForAmmount1", "00FF00"));
+				COLOR_FOR_AMMOUNT2 = Integer.decode("0x" + L24Team.getProperty("ColorForAmmount2", "00FF00"));
+				COLOR_FOR_AMMOUNT3 = Integer.decode("0x" + L24Team.getProperty("ColorForAmmount3", "00FF00"));
+				COLOR_FOR_AMMOUNT4 = Integer.decode("0x" + L24Team.getProperty("ColorForAmmount4", "00FF00"));
+				COLOR_FOR_AMMOUNT5 = Integer.decode("0x" + L24Team.getProperty("ColorForAmmount5", "00FF00"));
+				COLOR_FOR_AMMOUNT1 = Integer.decode("0x" + L24Team.getProperty("ColorForAmmount6", "00FF00"));
+				COLOR_FOR_AMMOUNT2 = Integer.decode("0x" + L24Team.getProperty("ColorForAmmount7", "00FF00"));
+				COLOR_FOR_AMMOUNT3 = Integer.decode("0x" + L24Team.getProperty("ColorForAmmount8", "00FF00"));
+				COLOR_FOR_AMMOUNT4 = Integer.decode("0x" + L24Team.getProperty("ColorForAmmount9", "00FF00"));
+				COLOR_FOR_AMMOUNT5 = Integer.decode("0x" + L24Team.getProperty("ColorForAmmount9", "00FF00"));
+				TITLE_COLOR_FOR_AMMOUNT1 = Integer.decode("0x" + L24Team.getProperty("TitleForAmmount1", "00FF00"));
+				TITLE_COLOR_FOR_AMMOUNT2 = Integer.decode("0x" + L24Team.getProperty("TitleForAmmount2", "00FF00"));
+				TITLE_COLOR_FOR_AMMOUNT3 = Integer.decode("0x" + L24Team.getProperty("TitleForAmmount3", "00FF00"));
+				TITLE_COLOR_FOR_AMMOUNT4 = Integer.decode("0x" + L24Team.getProperty("TitleForAmmount4", "00FF00"));
+				TITLE_COLOR_FOR_AMMOUNT5 = Integer.decode("0x" + L24Team.getProperty("TitleForAmmount5", "00FF00"));
+				TITLE_COLOR_FOR_AMMOUNT1 = Integer.decode("0x" + L24Team.getProperty("TitleForAmmount6", "00FF00"));
+				TITLE_COLOR_FOR_AMMOUNT2 = Integer.decode("0x" + L24Team.getProperty("TitleForAmmount7", "00FF00"));
+				TITLE_COLOR_FOR_AMMOUNT3 = Integer.decode("0x" + L24Team.getProperty("TitleForAmmount8", "00FF00"));
+				TITLE_COLOR_FOR_AMMOUNT4 = Integer.decode("0x" + L24Team.getProperty("TitleForAmmount9", "00FF00"));
+				TITLE_COLOR_FOR_AMMOUNT5 = Integer.decode("0x" + L24Team.getProperty("TitleForAmmount10", "00FF00"));
+				PVP_AMMOUNT1 = Integer.parseInt(L24Team.getProperty("PvpAmmount1", "25"));
+				PVP_AMMOUNT2 = Integer.parseInt(L24Team.getProperty("PvpAmmount2", "50"));
+				PVP_AMMOUNT3 = Integer.parseInt(L24Team.getProperty("PvpAmmount3", "100"));
+				PVP_AMMOUNT4 = Integer.parseInt(L24Team.getProperty("PvpAmmount4", "500"));
+				PVP_AMMOUNT5 = Integer.parseInt(L24Team.getProperty("PvpAmmount5", "100"));
+				PVP_AMMOUNT1 = Integer.parseInt(L24Team.getProperty("PvpAmmount6", "2000"));
+				PVP_AMMOUNT2 = Integer.parseInt(L24Team.getProperty("PvpAmmount7", "3000"));
+				PVP_AMMOUNT3 = Integer.parseInt(L24Team.getProperty("PvpAmmount8", "4500"));
+				PVP_AMMOUNT4 = Integer.parseInt(L24Team.getProperty("PvpAmmount9", "5500"));
+				PVP_AMMOUNT5 = Integer.parseInt(L24Team.getProperty("PvpAmmount10", "7000"));
 			} catch (Exception e)
 			{
 				e.printStackTrace();
@@ -1786,25 +1895,6 @@ public final class Config
 			{
 				e.printStackTrace();
 				throw new Error("Failed to Load " + OPTIONS_FILE + " File.");
-			}
-
-			/*
-			 * Load L2J Datapack Version Properties file (if exists)
-			 */
-			try
-			{
-				Properties serverVersion = new Properties();
-				InputStream is = new FileInputStream(
-						new File(DATAPACK_VERSION_FILE));
-				serverVersion.load(is);
-				is.close();
-
-				DATAPACK_VERSION = serverVersion.getProperty("version",
-						"Unsupported Custom Version.");
-			} catch (Exception e)
-			{
-				// Ignore Properties file if it doesnt exist
-				DATAPACK_VERSION = "Unsupported Custom Version.";
 			}
 
 			// telnet
